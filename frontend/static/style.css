@@ -1,0 +1,31 @@
+
+.main {
+    background-color: black;
+    color: white;
+}
+.stTextInput > div > div > input {
+    color: white;
+    background-color: #243b55;
+    border: none;
+}
+.stButton > button {
+    background-color: #4CAF50;
+    color: white;
+}
+.st-chat-message {
+    background-color: #243b55;
+    color: white !important;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.st-chat-message.user {
+    background-color: #1f7a8c;
+}
+.st-chat-message.bot {
+    background-color: #4CAF50;
+    color: white !important;
+}
+h1 {
+    color: white;
+}
