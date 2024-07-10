@@ -30,7 +30,7 @@ pdf_generation_prompt = ChatPromptTemplate.from_messages(
                     "the question. If you don't know the answer, say that you "
                     "don't know. Don't use any other data sources except the provided pdf."
                     "Use six sentences maximum and keep the "
-                    "answer concise. Don't answer any questions that is outside the pdf."
+                    "answer concise."
                     "\n\n"
                     "{context}"
                 )
@@ -39,3 +39,5 @@ pdf_generation_prompt = ChatPromptTemplate.from_messages(
         ("human", "{input}"),
     ]
 )
+
+    

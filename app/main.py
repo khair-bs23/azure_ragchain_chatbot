@@ -9,12 +9,13 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from langchain_openai import AzureChatOpenAI
 from langchain_community.embeddings import AzureOpenAIEmbeddings
-import chat
+from app import chat
 import uvicorn
 
 class Chatbot:
     def __init__(self) -> None:
-        api_key_path = "../.env"
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        api_key_path = os.path.join(script_dir, '../.env')
         load_dotenv(api_key_path)
         self.client = self.connect_api()
 
@@ -24,9 +25,15 @@ class Chatbot:
         #         api_version = os.getenv("AZURE_OPENAI_API_VERSION"), 
         #         azure_endpoint = os.getenv("AZURE_OPENAI_API_BASE")
         #         )
-        client = AzureChatOpenAI(model=os.getenv('DEPLOYMENT_MODEL'),
-                       api_version=os.getenv('AZURE_OPENAI_API_VERSION'),
-                       azure_endpoint = os.getenv("AZURE_OPENAI_API_BASE"))
+        try:
+            client = AzureChatOpenAI(model=os.getenv('DEPLOYMENT_MODEL'),
+                       openai_api_version=os.getenv('AZURE_OPENAI_API_VERSION'),
+                       azure_endpoint = os.getenv("AZURE_OPENAI_API_BASE"),
+                    #    azure_api_key = os.getenv("AZURE_OPENAI_API_KEY")
+                       )
+        except Exception as e:
+            print("Client Error ")
+            print(e)
         return client
 
     def get_llm(self):

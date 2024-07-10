@@ -7,7 +7,6 @@ from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_community.chat_message_histories import ChatMessageHistory
 
-
 class Chat():
     store = {}
     def __init__(self, question, session_id) -> None:
@@ -28,6 +27,7 @@ class Chat():
     def process_question(self):
         chat_history = self.get_session_history()
         pdf_handler = pdf_ragchain.PDFHandler()
+        print('X')
         response = pdf_handler.pdf_response(self.question, chat_history.messages, self.session_id)
 
         # update chat history
