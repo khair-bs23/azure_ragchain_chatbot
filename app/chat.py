@@ -9,12 +9,13 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 
 class Chat():
     store = {}
-    def __init__(self, question, session_id) -> None:
+    def __init__(self, question, session_id, client, embeddings) -> None:
         # super().__init__()
         self.question = question
         # self.store = {}
         self.session_id = session_id
-        
+        self.client = client
+        self.embeddings = embeddings
     
     def get_session_history(self) -> BaseChatMessageHistory:
         if self.session_id not in Chat.store:
@@ -26,10 +27,9 @@ class Chat():
 
     def process_question(self):
         chat_history = self.get_session_history()
-        pdf_handler = pdf_ragchain.PDFHandler()
+        pdf_handler = pdf_ragchain.PDFHandler(self.client, self.embeddings)
         print('X')
         response = pdf_handler.pdf_response(self.question, chat_history.messages, self.session_id)
-
         # update chat history
         chat_history.add_message(HumanMessage(content=self.question))
         chat_history.add_message(AIMessage(content=response))
@@ -37,3 +37,4 @@ class Chat():
         print(chat_history)
         print(response)
         return response
+

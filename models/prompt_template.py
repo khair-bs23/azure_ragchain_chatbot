@@ -25,14 +25,16 @@ pdf_reformulated_question_generation_template = ChatPromptTemplate.from_messages
 pdf_generation_prompt = ChatPromptTemplate.from_messages(
     [
         ("system", (
-                    "You are an assistant for question-answering tasks. "
-                    "Use the following pieces of retrieved context to answer "
-                    "the question. If you don't know the answer, say that you "
-                    "don't know. Don't use any other data sources except the provided pdf."
-                    "Use six sentences maximum and keep the "
-                    "answer concise."
-                    "\n\n"
-                    "{context}"
+                    """
+                        You are an assistant for answering the questions from the retrived context.
+                        Use the following pieces of retrieved context to answer 
+                        the question. If you don't know the answer, say that you
+                        don't know. Please don't make up anything on your own knowledgebase.
+                        Use six sentences maximum and keep the 
+                        answer concise.
+                        \n\n
+                        {context}
+                    """
                 )
         ),
         MessagesPlaceholder("chat_history"),
